@@ -51,10 +51,12 @@
 	z-index: 999;
 	left: 30vw;
 	width: 390px;
-	background: linear-gradient(353deg,
-			rgb(0 0 0) 0%,
-			rgb(62 4 127) 87%,
-			rgba(124, 1, 246, 1) 100%);
+	background: linear-gradient(
+		353deg,
+		rgb(0 0 0) 0%,
+		rgb(62 4 127) 87%,
+		rgba(124, 1, 246, 1) 100%
+	);
 	height: 640px;
 	border-radius: 20px;
 	border: 1px solid black;
@@ -97,9 +99,11 @@ form {
 
 	display: flex;
 
-	background: radial-gradient(2430.67% 145.26% at -8.97% 88.24%,
-			rgb(31, 31, 31) 0%,
-			rgb(31, 31, 31) 100%);
+	background: radial-gradient(
+		2430.67% 145.26% at -8.97% 88.24%,
+		rgb(31, 31, 31) 0%,
+		rgb(31, 31, 31) 100%
+	);
 	align-items: center;
 	border-radius: 0px 0px 20px 20px;
 }
@@ -133,9 +137,11 @@ ul {
 }
 
 .sendButton {
-	background: radial-gradient(2430.67% 145.26% at -8.97% 88.24%,
-			rgb(31, 31, 31) 0%,
-			rgb(31, 31, 31) 100%);
+	background: radial-gradient(
+		2430.67% 145.26% at -8.97% 88.24%,
+		rgb(31, 31, 31) 0%,
+		rgb(31, 31, 31) 100%
+	);
 	width: 30px;
 	height: 30px;
 	margin-left: 7px;
@@ -180,7 +186,7 @@ h3 {
 	overflow: -moz-scrollbars-none;
 }
 
-.OthereMessage>button {
+.OthereMessage > button {
 	width: 120px;
 	border: 0px;
 	display: flex;
@@ -194,7 +200,7 @@ h3 {
 	font-weight: 500;
 }
 
-.MyMessage>button {
+.MyMessage > button {
 	width: 120px;
 	border: 0px;
 	display: flex;
@@ -206,4 +212,14 @@ h3 {
 	background-color: #830ef7;
 	font-size: 20px;
 	font-weight: 500;
+}
+
+.container_for_img {
+	position: fixed;
+	top: 85%;
+	left: 80%;
+}
+.container_for_img > img {
+	width: 50px;
+	height: 50px;
 }

@@ -64,6 +64,11 @@ class AdminConnectionManager:
             if user_id == message_for and connection != None:
                 await connection.send_text(message)
 
+    async def broadcast_admin_is_online(self):
+        if self.admin_connection != None:
+            for user_id, connection in list(self.user_connections.items()):
+                await connection.send_text("admin")
+
 
 class ClientChatManager:
     def __init__(

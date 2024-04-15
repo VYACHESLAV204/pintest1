@@ -5,6 +5,7 @@ from fastapi import (
     status,
     APIRouter,
 )
+import requests
 from app.utils.main import save_file
 from ..schemas import FileName
 from ..web_socket import ClientChatManager, ConnectionManager, AdminConnectionManager
@@ -41,16 +42,16 @@ async def set_current_chat(user_id: int, key: str):
         messages = await admin_manager.get_message_story(message_for=current_user_id)
         for message in messages:
             await admin_manager.send_message_to_myself(
-                message.message, message_for=current_user_id
+                requests.utils.unquote(message.message), message_for=current_user_id
             )
         return current_user_id
 
 
 @router.websocket("/ws/admin/{key}")
 async def admin_websocket_endpoint(websocket: WebSocket, key: str):
-    await admin_manager.connect_admin(websocket)
     if KEY == key:
-
+        await admin_manager.connect_admin(websocket)
+        await admin_manager.broadcast_admin_is_online()
         try:
             while True:
                 message = await websocket.receive()
@@ -66,7 +67,8 @@ async def admin_websocket_endpoint(websocket: WebSocket, key: str):
                 else:
 
                     await admin_manager.send_message_to_user(
-                        f"Client #{1} says: {message}", message_for=current_user_id
+                        f"Client #{1} says: {requests.utils.unquote(message['text'])}",
+                        message_for=current_user_id,
                     )
         except WebSocketDisconnect:
             await admin_manager.disconnect_admin()
@@ -82,7 +84,6 @@ async def client_websocket_endpoint(websocket: WebSocket, client_id: int):
     try:
         while True:
             message = await websocket.receive()
-            
             if message["type"] == "websocket.disconnect":
                 break
             if "bytes" in message and message["bytes"] is not None:
@@ -95,7 +96,7 @@ async def client_websocket_endpoint(websocket: WebSocket, client_id: int):
                 )
             else:
                 await client_chat_manager.send_message_to_admin(
-                    f"Client #{client_id} says: {message}",
+                    f"Client #{client_id} says: {requests.utils.unquote(message['text'])}",
                     from_user=client_id,
                     current_user=current_user_id,
                 )

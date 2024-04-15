@@ -15,38 +15,41 @@ let myId = document.querySelector('#ws-id')
 myId.textContent = client_id
 let ws = new WebSocket('ws://localhost:8000/chat/ws/admin/' + TOKEN)
 
-
 ws.onmessage = function (event) {
 	setTimeout(function () {
-		let fileData = event.data.split(': ')
+		let messageText = decodeURIComponent(event.data)
+		if (messageText === "reload"){
+			e.preventDefault()
+		}
+		let fileData = messageText.split(': ')
 		let fileName = fileData[1]
 		let messages = document.getElementById('messages')
 		let message = document.createElement('div')
 		message.className = 'MyMessage'
-		let content = document.createTextNode(event.data)
-		let clientId = fileData[0].split(' ')[1]
-		if (event.data.includes("'text':")) {
-			if (myId.textContent === clientId?.slice(1)) {
+		let content = document.createTextNode(messageText)
+		let clientId = fileData[0].split('#')[1]
+		if (messageText.includes('says: "')) {
+			if (myId.textContent === clientId.split(' ')[0]) {
 				content = document.createTextNode(
-					event.data.substring(
-						event.data.indexOf("'text': ") + 9,
-						event.data.indexOf("'}")
+					messageText.substring(
+						messageText.indexOf('says: "') + 7,
+						messageText.length - 1
 					)
 				)
 				message.className = 'MyMessage'
 			} else if (!clientId) {
 				content = document.createTextNode(
-					event.data.substring(
-						event.data.indexOf("'text': ") + 9,
-						event.data.indexOf("'}")
+					messageText.substring(
+						messageText.indexOf('says: "') + 7,
+						messageText.length - 1
 					)
 				)
 				message.className = 'MyMessage'
 			} else {
 				content = document.createTextNode(
-					event.data.substring(
-						event.data.indexOf("'text': ") + 9,
-						event.data.indexOf("'}")
+					messageText.substring(
+						messageText.indexOf('says: "') + 7,
+						messageText.length - 1
 					)
 				)
 				message.className = 'OthereMessage'
@@ -91,7 +94,7 @@ ws.onmessage = function (event) {
 }
 function sendMessage(event) {
 	let input = document.getElementById('messageText')
-	ws.send(JSON.stringify(input.value))
+	ws.send(JSON.stringify(encodeURIComponent(input.value)))
 	input.value = ''
 
 	event.preventDefault()

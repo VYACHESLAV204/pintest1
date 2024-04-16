@@ -1,4 +1,6 @@
 from fastapi import WebSocket
+import requests
+import requests.utils
 from .models import Message
 from fastapi.websockets import WebSocket
 from sqlalchemy import insert
@@ -41,7 +43,9 @@ class AdminConnectionManager:
     async def add_message_to_database(self, message: str, client_id: int):
         with SessionLocal() as session:
             stmt = insert(Message).values(
-                message=message, chat_id=client_id, id_from_cookie=client_id
+                message=requests.utils.unquote(message),
+                chat_id=client_id,
+                id_from_cookie=client_id,
             )
             session.execute(stmt)
             session.commit()
@@ -90,7 +94,7 @@ class ClientChatManager:
             messages = session.query(Message).filter(Message.chat_id == client_id).all()
         for message in messages:
             await self.user_connections.user_connections[client_id].send_text(
-                message.message
+                requests.utils.quote(message.message)
             )
 
     async def send_message_to_admin(

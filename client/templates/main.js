@@ -9,6 +9,7 @@ if (!document.getElementById(cssId)) {
 	link.media = 'all'
 	head.appendChild(link)
 }
+
 // получить id из url
 let scriptSource = (function () {
 	var scripts = document.getElementsByTagName('script'),
@@ -101,24 +102,28 @@ let arrayOfMessages = []
 // Создать визуал виджета
 const appendChatHTML = () => {
 	container.innerHTML = `<div class="position-container">
-		<div class="headercontainer"><h3>Your ID: <span id="ws-id"></span></h3>
-		<div class="secondheader"> 
-		<img src="./customer-service.png"/>
-		<div><h3>Live Support</h3><p>How can we assist you today?</p></div></div>
-		<div id='messages' ></div>
-		<div class="form-container">
-			<form action="" onsubmit="sendMessage(event)">
-				<label class="fileInputLabel" for="fileInput"><img src="./free-icon-add-file-1090923.svg" alt=""/></label>
-					<input  type="text" id="messageText" autocomplete="off" placeholder="Enter your message"/>
-					<button class="sendButton"><img src="./Send-256x256.svg" alt=""/></button>
-				<input type="file" name="fileInput" id="fileInput" onchange="handleFileSelect(event)" />
-			</form>
-		</div>
+	<div class="headercontainer"><h3>Your ID: <span id="ws-id"></span></h3>
+	<div class="secondheader"> 
+	<img src="./customer-service.png"/>
+	<div><h3>Live Support</h3><p>How can we assist you today?</p></div></div>
+	<div id='messages' ></div>
+	<div class="form-container">
+	<form action="" onsubmit="sendMessage(event)">
+	<label class="fileInputLabel" for="fileInput"><img src="./free-icon-add-file-1090923.svg" alt=""/></label>
+	<input  type="text" id="messageText" autocomplete="off" placeholder="Enter your message"/>
+	<button class="sendButton"><img src="./Send-256x256.svg" alt=""/></button>
+	<input type="file" name="fileInput" id="fileInput" onchange="handleFileSelect(event)" />
+	</form>
+	</div>
 	</div>`
 	isOpened = true
 	myId = document.querySelector('#ws-id')
 	myId.textContent = client_id
 	arrayOfMessages.forEach((message) => appendMessage(message))
+	height = window.innerHeight
+	const OtherTop = height * 0.1
+	const containerDynamicHeight = document.querySelector('.position-container')
+	containerDynamicHeight.style.top = OtherTop + 'px'
 }
 const container = document.createElement('div')
 container.classList.add('container_for_img')

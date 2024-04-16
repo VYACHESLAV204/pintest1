@@ -104,4 +104,8 @@ class ClientChatManager:
             self.admin_connection_manager.admin_connection != None
             and from_user == current_user
         ):
-            await self.admin_connection_manager.admin_connection.send_text(message)
+            try:
+                await self.admin_connection_manager.admin_connection.send_text(message)
+            except Exception as e:
+                print(e)
+                self.admin_connection_manager.admin_connection = None

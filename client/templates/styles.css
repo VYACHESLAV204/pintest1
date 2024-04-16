@@ -47,7 +47,7 @@
 
 .position-container {
 	position: fixed;
-	top: 30vh;
+	top: 25vh;
 	z-index: 999;
 	left: 75vw;
 	width: 350px;

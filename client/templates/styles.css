@@ -1,15 +1,16 @@
 #messages {
 	list-style-type: none;
-	height: 450px;
+	height: 400px;
 	overflow-y: scroll;
-	padding-left: 28px;
-	padding-right: 28px;
+	padding-left: 14px;
+	padding-right: 14px;
 	padding-top: 20px;
 }
 
 .MyMessage {
 	color: #bababa;
 	margin-bottom: 12px;
+	box-sizing: border-box;
 	font-size: 22px;
 	max-width: 180px;
 	max-height: 300px;
@@ -18,7 +19,6 @@
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: column;
-	padding: 10px;
 	display: flex;
 	border-radius: 15px;
 	align-items: center;
@@ -30,12 +30,12 @@
 	color: #bababa;
 	margin-bottom: 12px;
 	font-size: 22px;
+	box-sizing: border-box;
 	max-width: 180px;
 	max-height: 300px;
 	text-wrap: wrap;
 	background: #830ef7;
 	flex-wrap: wrap;
-	padding: 10px;
 	display: flex;
 	border-radius: 15px;
 	align-items: center;
@@ -47,10 +47,10 @@
 
 .position-container {
 	position: fixed;
-	top: 10vh;
+	top: 30vh;
 	z-index: 999;
-	left: 30vw;
-	width: 390px;
+	left: 75vw;
+	width: 350px;
 	background: linear-gradient(
 		353deg,
 		rgb(0 0 0) 0%,
@@ -95,10 +95,9 @@ form {
 	position: absolute;
 	top: 543px;
 	height: 100px;
-	width: 390px;
-
+	width: 350px;
+	left: 0px;
 	display: flex;
-
 	background: radial-gradient(
 		2430.67% 145.26% at -8.97% 88.24%,
 		rgb(31, 31, 31) 0%,
@@ -111,7 +110,7 @@ form {
 #messageText {
 	border-radius: 10px;
 	padding: 8px 20px;
-	width: 246px;
+	width: 215px;
 	height: 50px;
 	color: #bababa;
 	background: #272626;
@@ -151,12 +150,34 @@ ul {
 .headercontainer {
 	padding: 2px 10px;
 	box-sizing: border-box;
-	width: 390px;
-	height: 75px;
+	width: 350px;
+	height: 140px;
 	border-radius: 20px 20px 0px 0px;
 	background: linear-gradient(40deg, #1f1f1f 0%, #1f1f1f 100%);
 }
-
+.headercontainer > h3 {
+	margin-bottom: 5px;
+}
+.secondheader {
+	display: flex;
+	align-items: center;
+	padding-left: 15px;
+	padding-right: 15px;
+	height: 83px;
+}
+.secondheader > img {
+	width: 45px;
+	height: 45px;
+	margin-right: 8px;
+}
+.secondheader > div > h3 {
+	margin-bottom: 0;
+	color: #c8c8c8;
+}
+.secondheader > div > p {
+	margin-top: 5px;
+	color: #c8c8c8;
+}
 #ws-id {
 	font-weight: 700;
 	font-size: 22px;
@@ -222,4 +243,10 @@ h3 {
 .container_for_img > img {
 	width: 50px;
 	height: 50px;
+}
+.admin_header {
+	position: relative;
+	left: 135px;
+	font-size: 15px;
+	color: #bababa;
 }

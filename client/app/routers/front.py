@@ -33,6 +33,13 @@ async def get_icon():
 @router.get("/free-icon-add-file-1090923.svg")
 async def get_icon():
     return FileResponse("./templates/free-icon-add-file-1090923.svg")
+
+
 @router.get("/chat-icon.png")
 async def get_icon():
     return FileResponse("./templates/chat-icon.png")
+
+
+@router.get("/customer-service.png")
+async def get_icon():
+    return FileResponse("./templates/customer-service.png")

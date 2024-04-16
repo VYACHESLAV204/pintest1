@@ -32,24 +32,26 @@ function appendMessage(messageText, event) {
 
 	if (messageText.includes('says: "')) {
 		if (myId.textContent === clientId.split(' ')[0]) {
-			content = document.createTextNode(
-				messageText.substring(
-					messageText.indexOf('says: "') + 7,
-					messageText.length - 1
-				)
-			)
-			message.className = 'MyMessage'
-		} else {
-			content = document.createElement('div')
-			paragraph = document.createElement('p')
-			paragraph.textContent = 'Offensive Security Support '
-			content.appendChild(paragraph)
 			paragraph2 = document.createElement('p')
 			paragraph2.textContent = messageText.substring(
 				messageText.indexOf('says: "') + 7,
 				messageText.length - 1
 			)
-			content.appendChild(paragraph2)
+			message.appendChild(paragraph2)
+			message.className = 'MyMessage'
+		} else {
+			paragraph = document.createElement('p')
+			paragraph.textContent = 'Offensive Security Support '
+			paragraph.classList.add('admin_header')
+
+			messages.appendChild(paragraph)
+			paragraph2 = document.createElement('p')
+			paragraph2.textContent = messageText.substring(
+				messageText.indexOf('says: "') + 7,
+				messageText.length - 1
+			)
+			message.appendChild(paragraph2)
+
 			message.className = 'OthereMessage'
 		}
 	}
@@ -60,6 +62,10 @@ function appendMessage(messageText, event) {
 			)
 			message.className = 'MyMessage'
 		} else {
+			paragraph = document.createElement('p')
+			paragraph.textContent = 'Offensive Security Support '
+			paragraph.classList.add('admin_header')
+			messages.appendChild(paragraph)
 			content = document.createTextNode(
 				messageText.substring(messageText.indexOf(': ') + 2)
 			)
@@ -84,7 +90,7 @@ function appendMessage(messageText, event) {
 		message.appendChild(content)
 		message.appendChild(downloadBtn)
 	} else {
-		message.appendChild(content)
+		messages.appendChild(message)
 	}
 	messages.appendChild(message)
 	messages.scrollTop = messages.scrollHeight - messages.clientHeight
@@ -95,7 +101,10 @@ let arrayOfMessages = []
 // Создать визуал виджета
 const appendChatHTML = () => {
 	container.innerHTML = `<div class="position-container">
-		<div class="headercontainer"><h3>Your ID: <span id="ws-id"></span></h3></div>
+		<div class="headercontainer"><h3>Your ID: <span id="ws-id"></span></h3>
+		<div class="secondheader"> 
+		<img src="./customer-service.png"/>
+		<div><h3>Live Support</h3><p>How can we assist you today?</p></div></div>
 		<div id='messages' ></div>
 		<div class="form-container">
 			<form action="" onsubmit="sendMessage(event)">
@@ -128,7 +137,7 @@ let ws = new WebSocket('ws://localhost:8000/chat/ws/client/' + client_id)
 ws.onmessage = function (event) {
 	let messageText = decodeURIComponent(event.data)
 	console.log(messageText)
-	if (messageText == 'admin') {
+	if (messageText == 'Client #1 says: "admin is online"') {
 		appendChatHTML()
 	}
 	if (isOpened == false) {
